@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Database</title>
+    <link rel="stylesheet" href="../static/index.css">
+</head>
+
+<body>
+
+    <script type="text/javascript" src="../static/javascript.js"></script>
+    <div class="Base">
+        <h1 id="title">Welcome to the Database</h1>
+        <h2>Termine</h2>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Info</th>
+                <th>Datum</th>
+            </tr>
+            {% for i in range(len_table) %}
+            {% if header == table[i][2] and content == table[i][3] and date_ == table[i][1] %}
+
+            <tr>
+                <form method="post" action="{{url_for('home')}}">
+                    <td><input type="text" name="new_header" value="{{table[i][2]}}" /></td>
+                    <td><input type="text" name="new_content" value="{{table[i][3]}}" /></td>
+                    <td><input type="text" name="new_date" value="{{table[i][1]}}" /></td>
+                    <td>
+                        <input type="hidden" name="header" value="{{table[i][2]}}" />
+                        <input type="hidden" name="content" value="{{table[i][3]}}" />
+                        <input type="hidden" name="date" value="{{table[i][1]}}" />
+                        <input type="hidden" name="type" value="update" />
+                        <input type="submit" value="Save" />
+                </form>
+                </td>
+            </tr>
+
+            {% else %}
+            <tr>
+                <td>{{table[i][2]}}</td>
+                <td>{{table[i][3]}}</td>
+                <td>{{table[i][1]}}</td>
+                <td>
+                    <form method="post" action="{{url_for('home')}}">
+                        <input type="hidden" name="header" value="{{table[i][2]}}" />
+                        <input type="hidden" name="content" value="{{table[i][3]}}" />
+                        <input type="hidden" name="date" value="{{table[i][1]}}" />
+                        <input type="hidden" name="type" value="delete" />
+                        <input type="submit" value="Delete" />
+
+                    </form>
+                </td>
+                <td>
+                    <form method="post" action="{{url_for('home')}}">
+                        <input type="hidden" name="header" value="{{table[i][2]}}" />
+                        <input type="hidden" name="content" value="{{table[i][3]}}" />
+                        <input type="hidden" name="date" value="{{table[i][1]}}" />
+                        <input type="hidden" name="type" value="return_update" />
+                        <input type="submit" value="Edit" />
+
+                    </form>
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </table>
+        <h2>Insert</h2>
+        <form method="post" action="{{url_for('home')}}">
+            <label for="table_selection">Tabel:</label><br>
+            <select name="table_selection">
+                {% for name in range(len_tables) %}
+                <option value="{{tabels[name]}}">{{tabels[name]}}</option>
+                {% endfor %}
+            </select><br>
+            <label>
+                <input type="time" name="time"><br>
+                <input type="date" name="date" /><br>
+            </label>
+            <input type="text" name="title" placeholder="Titel" /><br>
+            <input type="text" name="text" placeholder="Description" />
+            <br><br>
+            <input type="hidden" name="type" value="insert" />
+            <input type='submit' name='submit' />
+        </form>
+        <h2>Next Date</h2>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Info</th>
+                <th>Datum</th>
+            </tr>
+            {% for i in range(len_next_date) %}
+            <tr>
+                <td>{{next_date[i][2]}}</td>
+                <td>{{next_date[i][3]}}</td>
+                <td>{{next_date[i][1]}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</body>
+
+</html>
