@@ -4,7 +4,7 @@
 <br />
 <p align="center">
 
-  <h3 align="center">Python Discord Bot</h3>
+  <h3 align="center">Notification-System</h3>
 </p>
 
 
